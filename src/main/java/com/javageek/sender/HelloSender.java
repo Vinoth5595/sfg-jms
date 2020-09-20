@@ -10,7 +10,9 @@ import com.javageek.config.JmsConfig;
 import com.javageek.model.HelloWorldMessage;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class HelloSender {
@@ -19,7 +21,7 @@ public class HelloSender {
 	
 	@Scheduled(fixedRate = 2000)
 	public void sendMessage() {
-		System.out.println("Message Sending...");
+		log.info("Message Sending...");
 		
 		HelloWorldMessage message = HelloWorldMessage
 				.builder()
@@ -29,7 +31,7 @@ public class HelloSender {
 		
 		jmsTemplate.convertAndSend(JmsConfig.MY_QUEUE, message);
 		
-		System.out.println("Message Sent");
+		log.info("Message Sent");
 	}
 
 }
